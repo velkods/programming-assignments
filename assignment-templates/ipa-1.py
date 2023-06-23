@@ -102,8 +102,8 @@ def interest(principal, rate, periods):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    wastage = str(total_material - (num_jobs * job_consumption)) + material_units
-    print(str(wastage))
+    final = principal * (1+(rate*periods))
+    return final
 
 def body_mass_index(weight, height):
     '''Body Mass Index.
