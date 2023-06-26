@@ -72,7 +72,7 @@ def material_waste(total_material, material_units, num_jobs, job_consumption):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     wastage = str(total_material - (num_jobs * job_consumption)) + material_units
-    print(str(wastage))
+    return str(wastage)
 
 def interest(principal, rate, periods):
     '''Interest.
@@ -102,8 +102,11 @@ def interest(principal, rate, periods):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
+    import math
     final = principal * (1+(rate*periods))
-    return final
+    math.floor(final)
+    return int(final)
+
 
 def body_mass_index(weight, height):
     '''Body Mass Index.
@@ -140,11 +143,8 @@ def body_mass_index(weight, height):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     weight_kg = weight * 0.453592
-    ft_in = [int(s) for s in height.split() if s.isdigit()]
-    ft_m = ft_in[0] * 0.3048
-    in_m = ft_in[1] * 0.0254
+    ft_m = height[0]* 0.3048
+    in_m = height[1]* 0.0254 
     height_m = ft_m + in_m
     bmi = weight_kg / (height_m**2)
     return bmi
-    #bmi function height input formateed as 'ft in'
-    #example: 5 ft 6 in (5'6") is typed as '5 6' in the function parameter
