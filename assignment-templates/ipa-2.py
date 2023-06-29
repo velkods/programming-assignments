@@ -37,7 +37,20 @@ def shift_letter(letter, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    if letter == " ":
+        return " "
+    elif letter.isupper():
+        letter = ord(letter)
+        newletter = letter + int(shift)
+        if newletter > 90:
+            newletter = newletter - 26
+        return str((chr(newletter)))
+    elif letter.islower():
+        letter = ord(letter)
+        newletter = letter + int(shift)
+        if newletter > 122:
+            newletter = newletter - 26
+        return str((chr(newletter)))
 
 def caesar_cipher(message, shift):
     '''Caesar Cipher.
@@ -59,7 +72,24 @@ def caesar_cipher(message, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    newmessage = ''
+    for character in message: 
+        if character == ' ':
+            newmessage = newmessage + ' '
+        elif character.isupper():
+            character = ord(character) 
+            newletter = character + int(shift)
+            if newletter > 90:
+                newletter = newletter - 26
+            newmessage = newmessage + chr(newletter)
+        elif character.islower():
+            character = ord(character) 
+            newletter = character + int(shift)
+            if newletter > 122:
+                newletter = newletter - 26
+            newmessage = newmessage + chr(newletter)    
+
+    return str(newmessage)
 
 def shift_by_letter(letter, letter_shift):
     '''Shift By Letter.
@@ -89,7 +119,23 @@ def shift_by_letter(letter, letter_shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    if letter_shift.isupper():
+        letter_shift = ord(letter_shift) - 65
+    elif letter_shift.islower():
+        letter_shift = ord(letter_shift) - 97
+    
+    if letter.isupper():
+        letter = ord(letter)
+        newletter = letter + int(letter_shift)
+        if newletter > 90:
+            newletter = newletter - 26
+        return str((chr(newletter)))
+    if letter.islower():
+        letter = ord(letter)
+        newletter = letter + int(letter_shift)
+        if newletter > 122:
+            newletter = newletter - 26
+        return str((chr(newletter)))
 
 def vigenere_cipher(message, key):
     '''Vigenere Cipher.
@@ -122,7 +168,26 @@ def vigenere_cipher(message, key):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    key_chars = []
+    list_chars = []
+    encryptedmsg = ''
+    for letter in key:
+        key_chars.append(letter)
+    for letter in message:
+        list_chars.append(letter)
+    
+    n = 0
+    for character in list_chars:
+        if character == ' ':
+            encryptedmsg = encryptedmsg + ' '
+            n = n + 1
+        else:
+            newcharacter = ord(character) + (ord(key_chars[n]) - 65)
+            if newcharacter > 90:
+                newcharacter = newcharacter - 26
+            encryptedmsg = encryptedmsg + chr(newcharacter)    
+            n = n + 1
+    return encryptedmsg
 
 def scytale_cipher(message, shift):
     '''Scytale Cipher.
@@ -176,14 +241,28 @@ def scytale_cipher(message, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    while len(message) % shift != 0:
+        message = message + "_"
+    
+    message_chars_list = []
+    for letters in message:
+        message_chars_list.append(letters)
+
+    encoded_message = ""
+    n = 0
+    for chars in message:
+        next_character = message_chars_list[(n // shift) + (len(message) // shift) * (n % shift)]
+        encoded_message = encoded_message + next_character
+        n = n + 1
+
+    return encoded_message
 
 def scytale_decipher(message, shift):
     '''Scytale De-cipher.
     15 points.
 
     Decrypts a message that was originally encrypted with the `scytale_cipher` function above.
-
+ 
     Example:
     scytale_decipher("IMNNA_FTAOIGROE", 3) -> "INFORMATION_AGE"
     scytale_decipher("AOTSRIOALRH_EMRNGIMA_PTT", 8) -> "ALGORITHMS_ARE_IMPORTANT"
