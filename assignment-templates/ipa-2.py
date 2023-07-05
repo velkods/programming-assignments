@@ -41,13 +41,13 @@ def shift_letter(letter, shift):
         return " "
     elif letter.isupper():
         letter = ord(letter)
-        newletter = letter + int(shift)
+        newletter = letter + (shift % 26)
         if newletter > 90:
             newletter = newletter - 26
         return str((chr(newletter)))
     elif letter.islower():
         letter = ord(letter)
-        newletter = letter + int(shift)
+        newletter = letter + (shift % 26)
         if newletter > 122:
             newletter = newletter - 26
         return str((chr(newletter)))
@@ -78,13 +78,13 @@ def caesar_cipher(message, shift):
             newmessage = newmessage + ' '
         elif character.isupper():
             character = ord(character) 
-            newletter = character + int(shift)
+            newletter = character + (shift % 26)
             if newletter > 90:
                 newletter = newletter - 26
             newmessage = newmessage + chr(newletter)
         elif character.islower():
             character = ord(character) 
-            newletter = character + int(shift)
+            newletter = character + (shift % 26)
             if newletter > 122:
                 newletter = newletter - 26
             newmessage = newmessage + chr(newletter)    
@@ -119,7 +119,10 @@ def shift_by_letter(letter, letter_shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    if letter_shift.isupper():
+    #ADD CASE if string is " "
+    if letter == " ":
+        return " "
+    elif letter_shift.isupper():
         letter_shift = ord(letter_shift) - 65
     elif letter_shift.islower():
         letter_shift = ord(letter_shift) - 97
@@ -136,7 +139,6 @@ def shift_by_letter(letter, letter_shift):
         if newletter > 122:
             newletter = newletter - 26
         return str((chr(newletter)))
-
 def vigenere_cipher(message, key):
     '''Vigenere Cipher.
     15 points.
@@ -168,6 +170,10 @@ def vigenere_cipher(message, key):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
+    #ADD CASE if key is shorter than string
+    while len(key) < len(message):
+        key = 2*key
+
     key_chars = []
     list_chars = []
     encryptedmsg = ''
@@ -175,7 +181,10 @@ def vigenere_cipher(message, key):
         key_chars.append(letter)
     for letter in message:
         list_chars.append(letter)
-    
+
+    while len(key_chars) > len(list_chars):
+        key_chars.pop()
+
     n = 0
     for character in list_chars:
         if character == ' ':
@@ -284,4 +293,19 @@ def scytale_decipher(message, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    message_chars_list = []
+    for letters in message:
+        message_chars_list.append(letters)
+ 
+    decoded_message_list = []
+    decoded_message_placeholder = '_' * len(message)
+    for characters in decoded_message_placeholder:
+        decoded_message_list.append(characters)
+    
+    n = 0
+    while n <= len(message) - 1:
+        pos = (n // shift) + (len(message) // shift) * (n % shift)
+        decoded_message_list[pos] = message_chars_list[n]
+        n = n + 1
+
+    return(''.join(decoded_message_list))
